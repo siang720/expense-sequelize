@@ -20,6 +20,9 @@
             <h3 class="my-auto">家庭記賬本</h3>
           </div>
         </a>
+        {{#if isAuthenticated}}
+        <a href="/users/logout" class="btn btn-outline-light">Logout</a>
+        {{/if}}
       </div>
     </nav>
   </header>

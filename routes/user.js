@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 const bcrypt = require("bcryptjs");
 
 // 載入Model
@@ -12,8 +13,12 @@ router.get("/login", (req, res) => {
 });
 
 // 登入檢查
-router.post("/login", (req, res) => {
-  res.send("login check");
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/users/login"
+  })(req, res, next);
+  console.log(res.locals.warning_msg);
 });
 
 // 註冊頁面
@@ -83,6 +88,8 @@ router.post("/register", (req, res) => {
 
 // 登出
 router.get("/logout", (req, res) => {
+  req.logout();
+  req.flash("success_msg", "你已經成功登出");
   res.redirect("/users/login");
 });
 

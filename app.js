@@ -24,6 +24,34 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // method-override
 app.use(methodOverride("_method"));
 
+// 載入session
+app.use(
+  session({
+    secret: "your secret key",
+    resave: "false",
+    saveUninitialized: "false"
+  })
+);
+
+// 使用passport
+app.use(passport.initialize());
+app.use(passport.session());
+require("./config/passport")(passport);
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
+
+// 登入後可以取得使用者的資訊方便我們在 view 裡面直接使用
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  res.locals.isAuthenticated = req.isAuthenticated();
+  // 新增兩個 flash message 變數
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.warning_msg = req.flash("warning_msg");
+  next();
+});
+
 // use routes
 app.use("/", require("./routes/home"));
 app.use("/users", require("./routes/user"));
