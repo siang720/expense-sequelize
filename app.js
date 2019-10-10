@@ -24,10 +24,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // method-override
 app.use(methodOverride("_method"));
 
-// route
-app.get("/", (req, res) => {
-  res.send("initial");
-});
+// use routes
+app.use("/", require("./routes/home"));
+app.use("/users", require("./routes/user"));
 
 // start listen
 app.listen(port, () => {
