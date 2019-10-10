@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-3"></div>
+
+    <div class="col-6">
+
+      <div class="row mb-3">
+        <div class="col-4">
+          *必填欄位
+        </div>
+        <div class="col-8 my-auto">
+          <h4 class="my-auto text-center">請修改您的支出</h4>
+        </div>
+      </div>
+
+
+
+      <form action="/records/{{{record.id}}}?_method=PUT" method="POST">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-4 my-auto">
+              <label for="name" class="my-auto">
+                <h4 class="my-auto">名稱* :</h4>
+              </label>
+            </div>
+            <div class="col-8">
+              <input type="text" class="form-control" id="name" placeholder="" name="name" required
+                value="{{{record.name}}}">
+            </div>
+          </div>
+
+
+          <div class="row mt-4">
+            <div class="col-4 my-auto">
+              <label for="date" class="my-auto">
+                <h4 class="my-auto">日期* :</h4>
+              </label>
+            </div>
+            <div class="col-8">
+              <input type="date" name="date" class="form-control" id="date" data-provide="datepicker" placeholder="支出日期"
+                value={{#formatDate record.date}}{{/formatDate}} required>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-4 my-auto">
+              <label for="category" class="my-auto">
+                <h4 class="my-auto">類別* :</h4>
+              </label>
+            </div>
+            <div class="col-8">
+              <select type="text" name="category" class="custom-select form-control" id="category" placeholder=""
+                required>
+                <option value="">請選擇一個類別</option>
+                <option name="category" value="家居物業" {{#ifEquals record.category '家居物業' }}selected{{/ifEquals}}>家居物業
+                </option>
+                <option name="category" value="交通出行" {{#ifEquals record.category '交通出行' }}selected{{/ifEquals}}>交通出行
+                </option>
+                <option name="category" value="休閒娛樂" {{#ifEquals record.category '休閒娛樂' }}selected{{/ifEquals}}>休閒娛樂
+                </option>
+                <option name="category" value="餐飲食品" {{#ifEquals record.category '餐飲食品' }}selected{{/ifEquals}}>餐飲食品
+                </option>
+                <option name="category" value="其他" {{#ifEquals record.category '其他' }}selected{{/ifEquals}}>其他</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-4 my-auto">
+              <label for="amount" class="my-auto">
+                <h4 class="my-auto">金額* :</h4>
+              </label>
+            </div>
+            <div class="col-8">
+              <input type="number" name="amount" class="form-control" id="amount" placeholder="" required="required"
+                value={{{record.amount}}}>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-4 my-auto"></div>
+            <div class="col-8 text-center">
+              <button type="submit" class="btn btn-outline-dark btn-lg btn-block">修改支出</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-3"></div>
+
+  </div>
+
+</div>

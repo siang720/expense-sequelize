@@ -1,1 +1,87 @@
-<h1>index page</h1>
+<div class="container" id="main">
+  <form action="/">
+    <div class="d-flex flex-row">
+      <select onchange="this.form.submit()" type="text" class="custom-select form-control mr-3" name="month" id="month"
+        required>
+        <option selected>選擇一個月份</option>
+        <option {{#ifEquals month '1月' }}selected{{/ifEquals}}>1月</option>
+        <option {{#ifEquals month '2月' }}selected{{/ifEquals}}>2月</option>
+        <option {{#ifEquals month '3月' }}selected{{/ifEquals}}>3月</option>
+        <option {{#ifEquals month '4月' }}selected{{/ifEquals}}>4月</option>
+        <option {{#ifEquals month '5月' }}selected{{/ifEquals}}>5月</option>
+        <option {{#ifEquals month '6月' }}selected{{/ifEquals}}>6月</option>
+        <option {{#ifEquals month '7月' }}selected{{/ifEquals}}>7月</option>
+        <option {{#ifEquals month '8月' }}selected{{/ifEquals}}>8月</option>
+        <option {{#ifEquals month '9月' }}selected{{/ifEquals}}>9月</option>
+        <option {{#ifEquals month '10月' }}selected{{/ifEquals}}>10月</option>
+        <option {{#ifEquals month '11月' }}selected{{/ifEquals}}>11月</option>
+        <option {{#ifEquals month '12月' }}selected{{/ifEquals}}>12月</option>
+      </select>
+      <select onchange="this.form.submit()" type="text" class="custom-select form-control" id="category" placeholder=""
+        required name="category">
+        <option selected>所有類別</option>
+        <option {{#ifEquals category '家居物業' }}selected{{/ifEquals}}>家居物業</option>
+        <option {{#ifEquals category '交通出行' }}selected{{/ifEquals}}>交通出行</option>
+        <option {{#ifEquals category '休閒娛樂' }}selected{{/ifEquals}}>休閒娛樂</option>
+        <option {{#ifEquals category '餐飲食品' }}selected{{/ifEquals}}>餐飲食品</option>
+        <option {{#ifEquals category '其他' }}selected{{/ifEquals}}>其他</option>
+      </select>
+    </div>
+  </form>
+
+  <table class="table table-borderless">
+    <tbody>
+      <tr>
+        <td class="align-middle">
+          <h2>總金額：</h2>
+        </td>
+        <td class="align-middle">
+          <h1 class="text-right">{{totalAmount}}</h1>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-striped">
+    <tbody>
+      {{#each records}}
+      <tr>
+        <td class="align-middle text-center">
+          {{#ifEquals this.category '家居物業' }}<i class="fas fa-home fa-3x" id="fa-home"></i>{{/ifEquals}}
+          {{#ifEquals this.category '交通出行' }}<i class="fas fa-shuttle-van fa-3x" id="fa-shuttle-van"></i>{{/ifEquals}}
+          {{#ifEquals this.category '休閒娛樂' }}<i class="fas fa-grin-beam fa-3x" id="fa-grin-beam"></i>{{/ifEquals}}
+          {{#ifEquals this.category '餐飲食品' }}<i class="fas fa-utensils fa-3x" id="fa-utensils"></i>{{/ifEquals}}
+          {{#ifEquals this.category '其他' }}<i class="fas fa-pen fa-3x" id="fa-pen"></i>{{/ifEquals}}
+        </td>
+        <td class="align-middle">
+          <div class="row">
+            <div class="col-12">
+              <h5>{{{this.name}}}</h5>
+            </div>
+            <div class="col-12">
+              <h5>{{#formatDate this.date}}{{/formatDate}}</h5>
+            </div>
+          </div>
+        </td>
+        <td class="align-middle">
+          <h3 class="my-auto text-right">{{#toString this.amount}}{{/toString}}</h3>
+        </td>
+        <td class="align-middle text-right">
+          <a href="/records/{{{this.id}}}/edit" class="btn btn-outline-primary">修改</a>
+        </td>
+        <td class="align-middle text-left">
+          <form action="/records/{{{this.id}}}/delete?_method=DELETE" method="post" style="display:inline"
+            onsubmit="return confirm('確定要刪除這筆支出嗎？');">
+            <button type="submit" class="btn btn-outline-danger">刪除</button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+
+    </tbody>
+  </table>
+  <div class="text-center">
+    <a class="btn btn-outline-dark btn-lg" href="/records/new" role="button">新增支出</a>
+  </div>
+
+</div>

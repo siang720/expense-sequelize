@@ -24,6 +24,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // method-override
 app.use(methodOverride("_method"));
 
+// handlebars register helper
+const Handlebars = require("handlebars");
+Handlebars.registerHelper("ifEquals", function(arg1, arg2, options) {
+  return arg1 == arg2 ? options.fn(this) : options.inverse(this);
+});
+Handlebars.registerHelper("formatDate", function(date) {
+  return date.toISOString().slice(0, 10);
+});
+Handlebars.registerHelper("toString", function(amount) {
+  return amount.toString();
+});
+
 // 載入session
 app.use(
   session({
@@ -55,6 +67,7 @@ app.use((req, res, next) => {
 // use routes
 app.use("/", require("./routes/home"));
 app.use("/users", require("./routes/user"));
+app.use("/records", require("./routes/record"));
 
 // start listen
 app.listen(port, () => {
