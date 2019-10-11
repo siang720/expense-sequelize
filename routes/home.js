@@ -11,6 +11,7 @@ const Record = db.Record;
 const User = db.User;
 
 router.get("/", authenticated, (req, res) => {
+  console.log(req.user.id);
   // 定義category_selected
   let category_selected = "%"; // 下面SQL query用LIKE '%' 會選到全部category
   if (req.query.category && req.query.category !== "所有類別") {

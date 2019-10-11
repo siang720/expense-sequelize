@@ -1,1 +1,10 @@
+# OS X
+.DS_Store*
+Icon?
+._*
+.env
+# npm
 /node_modules
+package-lock.json
+*.log
+*.gz

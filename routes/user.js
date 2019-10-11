@@ -9,16 +9,23 @@ const User = db.User;
 
 // 登入頁面
 router.get("/login", (req, res) => {
-  res.render("login");
+  let errors = [];
+  errorMessages = req.flash("error")[0];
+  if (!errorMessages) {
+    res.render("login");
+  } else {
+    errors.push({ message: errorMessages });
+    res.render("login", { errors });
+  }
 });
 
 // 登入檢查
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/users/login"
+    failureRedirect: "/users/login",
+    failureFlash: true
   })(req, res, next);
-  console.log(res.locals.warning_msg);
 });
 
 // 註冊頁面
